@@ -42,7 +42,7 @@ ENDSEG   = SYSSEG + SYSSIZE		! where to stop loading
 !		0x301 - first partition on first drive etc
 ROOT_DEV = 0x306
 
-entry start
+entry start                             ;after bios load this file into ram
 start:
 	mov	ax,#BOOTSEG
 	mov	ds,ax
