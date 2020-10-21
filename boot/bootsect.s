@@ -45,16 +45,16 @@ ROOT_DEV = 0x306
 entry start                             ;after bios load this file into ram
 start:
 	mov	ax,#BOOTSEG
-	mov	ds,ax
+	mov	ds,ax                  !DS is called data segment register. It points to the segment of the data used by the running program. You can point this to anywhere you want as long as it contains the desired data.
 	mov	ax,#INITSEG
 	mov	es,ax
-	mov	cx,#256
+	mov	cx,#256                ！CX――计数器（Count Register），常作为计数器
 	sub	si,si
-	sub	di,di
+	sub	di,di                  !ES is called extra segment register. It is usually used with DI and doing pointers things. The couple DS:SI and ES:DI are commonly used to do string operations.
 	rep
 	movw
 	jmpi	go,INITSEG
-go:	mov	ax,cs
+go:	mov	ax,cs                  ; jump to INITSEG to execute original codes
 	mov	ds,ax
 	mov	es,ax
 ! put stack at 0x9ff00.
@@ -69,7 +69,7 @@ load_setup:
 	mov	cx,#0x0002		! sector 2, track 0
 	mov	bx,#0x0200		! address = 512, in INITSEG
 	mov	ax,#0x0200+SETUPLEN	! service 2, nr of sectors
-	int	0x13			! read it
+	int	0x13			! read it, this is interrupt
 	jnc	ok_load_setup		! ok - continue
 	mov	dx,#0x0000
 	mov	ax,#0x0000		! reset the diskette
