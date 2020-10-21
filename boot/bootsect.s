@@ -70,7 +70,7 @@ load_setup:
 	mov	bx,#0x0200		! address = 512, in INITSEG
 	mov	ax,#0x0200+SETUPLEN	! service 2, nr of sectors
 	int	0x13			! read it, this is interrupt
-	jnc	ok_load_setup		! ok - continue
+	jnc	ok_load_setup		! ok - continue, then jump to ok_load_setup
 	mov	dx,#0x0000
 	mov	ax,#0x0000		! reset the diskette
 	int	0x13
@@ -94,7 +94,7 @@ ok_load_setup:
 	mov	ah,#0x03		! read cursor pos
 	xor	bh,bh
 	int	0x10
-	
+
 	mov	cx,#24
 	mov	bx,#0x0007		! page 0, attribute 7 (normal)
 	mov	bp,#msg1
