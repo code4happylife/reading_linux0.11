@@ -57,7 +57,9 @@ extern long startup_time;
  */
 #define EXT_MEM_K (*(unsigned short *)0x90002)
 #define DRIVE_INFO (*(struct drive_info *)0x90080)
+//machine system parameter
 #define ORIG_ROOT_DEV (*(unsigned short *)0x901FC)
+//define root device number
 
 /*
  * Yeah, yeah, it's ugly, but I cannot find how to do this correctly
@@ -109,7 +111,7 @@ void main(void)		/* This really IS void, no error here. */
  */
  	ROOT_DEV = ORIG_ROOT_DEV;
  	drive_info = DRIVE_INFO;
-	memory_end = (1<<20) + (EXT_MEM_K<<10);
+	memory_end = (1<<20) + (EXT_MEM_K<<10); //This is for total memory.
 	memory_end &= 0xfffff000;
 	if (memory_end > 16*1024*1024)
 		memory_end = 16*1024*1024;
