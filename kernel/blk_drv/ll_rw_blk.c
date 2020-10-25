@@ -38,7 +38,7 @@ struct blk_dev_struct blk_dev[NR_BLK_DEV] = {
 	{ NULL, NULL },		/* dev tty */
 	{ NULL, NULL }		/* dev lp */
 };
-
+//six type of devices....
 static inline void lock_buffer(struct buffer_head * bh)
 {
 	cli();
