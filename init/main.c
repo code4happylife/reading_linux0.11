@@ -123,10 +123,10 @@ void main(void)		/* This really IS void, no error here. */
 		buffer_memory_end = 1*1024*1024;
 	main_memory_start = buffer_memory_end;
 #ifdef RAMDISK
-	main_memory_start += rd_init(main_memory_start, RAMDISK*1024);
+	main_memory_start += rd_init(main_memory_start, RAMDISK*1024);//This is setting virtual disk
 #endif
 	mem_init(main_memory_start,memory_end);
-	trap_init();
+	trap_init();//trap init will do something to deal with exceptions...
 	blk_dev_init();
 	chr_dev_init();
 	tty_init();
