@@ -86,7 +86,7 @@ struct task_struct {
 /* various fields */
 	int exit_code;
 	unsigned long start_code,end_code,end_data,brk,start_stack;
-	long pid,father,pgrp,session,leader;
+	long pid,father,pgrp,session,leader;//This is the pid of task
 	unsigned short uid,euid,suid;
 	unsigned short gid,egid,sgid;
 	long alarm;
@@ -105,7 +105,7 @@ struct task_struct {
 /* tss for this task */
 	struct tss_struct tss;
 };
-
+//process 0 and its task_struct
 /*
  *  INIT_TASK is used to set up the first task table, touch at
  * your own risk!. Base=0, limit=0x9ffff (=640kB)

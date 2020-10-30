@@ -44,7 +44,7 @@ void show_stat(void)
 }
 
 #define LATCH (1193180/HZ)
-
+//for each time slice 
 extern void mem_use(void);
 
 extern int timer_interrupt(void);
@@ -52,7 +52,7 @@ extern int system_call(void);
 
 union task_union {
 	struct task_struct task;
-	char stack[PAGE_SIZE];
+	char stack[PAGE_SIZE];//page size is 4k
 };
 
 static union task_union init_task = {INIT_TASK,};
@@ -406,7 +406,7 @@ void sched_init(void)
 	outb_p(0x36,0x43);		/* binary, mode 3, LSB/MSB, ch 0 */
 	outb_p(LATCH & 0xff , 0x40);	/* LSB */
 	outb(LATCH >> 8 , 0x40);	/* MSB */
-	set_intr_gate(0x20,&timer_interrupt);
+	set_intr_gate(0x20,&timer_interrupt);//set timer interrupt which is the basic of scheduling process
 	outb(inb_p(0x21)&~0x01,0x21);
-	set_system_gate(0x80,&system_call);
+	set_system_gate(0x80,&system_call);//set entrance of system call
 }
