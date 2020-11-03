@@ -132,7 +132,7 @@ void main(void)		/* This really IS void, no error here. */
 	tty_init();
 	time_init();
 	sched_init();//init process
-	buffer_init(buffer_memory_end);
+	buffer_init(buffer_memory_end);//setting the buffer
 	hd_init();
 	floppy_init();
 	sti();

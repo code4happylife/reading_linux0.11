@@ -362,7 +362,7 @@ void buffer_init(long buffer_end)
 		h->b_lock = 0;
 		h->b_uptodate = 0;
 		h->b_wait = NULL;
-		h->b_next = NULL;
+		h->b_next = NULL;//for later linked to be hash table
 		h->b_prev = NULL;
 		h->b_data = (char *) b;
 		h->b_prev_free = h-1;
@@ -377,5 +377,5 @@ void buffer_init(long buffer_end)
 	free_list->b_prev_free = h;
 	h->b_next_free = free_list;
 	for (i=0;i<NR_HASH;i++)
-		hash_table[i]=NULL;
+		hash_table[i]=NULL;//empty the hash table
 }	
