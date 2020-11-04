@@ -133,7 +133,7 @@ void main(void)		/* This really IS void, no error here. */
 	time_init();
 	sched_init();//init process
 	buffer_init(buffer_memory_end);//setting the buffer
-	hd_init();
+	hd_init();//init hard disk setting
 	floppy_init();
 	sti();
 	move_to_user_mode();
