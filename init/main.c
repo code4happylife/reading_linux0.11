@@ -56,7 +56,7 @@ extern long startup_time;
  * This is set up by the setup-routine at boot-time
  */
 #define EXT_MEM_K (*(unsigned short *)0x90002)
-#define DRIVE_INFO (*(struct drive_info *)0x90080)
+#define DRIVE_INFO (*(struct drive_info *)0x90080)//Setting hard disk info
 //machine system parameter
 #define ORIG_ROOT_DEV (*(unsigned short *)0x901FC)
 //define root device number
