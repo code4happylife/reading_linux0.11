@@ -110,9 +110,9 @@ void schedule(void)
 
 	for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
 		if (*p) {
-			if ((*p)->alarm && (*p)->alarm < jiffies) {
+			if ((*p)->alarm && (*p)->alarm < jiffies) {//if set alarm or has past the alarm
 					(*p)->signal |= (1<<(SIGALRM-1));
-					(*p)->alarm = 0;
+					(*p)->alarm = 0;//set alarm to be 0
 				}
 			if (((*p)->signal & ~(_BLOCKABLE & (*p)->blocked)) &&
 			(*p)->state==TASK_INTERRUPTIBLE)
@@ -130,20 +130,20 @@ void schedule(void)
 			if (!*--p)
 				continue;
 			if ((*p)->state == TASK_RUNNING && (*p)->counter > c)
-				c = (*p)->counter, next = i;
+				c = (*p)->counter, next = i;//find the process with biggest counter
 		}
 		if (c) break;
 		for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
 			if (*p)
 				(*p)->counter = ((*p)->counter >> 1) +
-						(*p)->priority;
+						(*p)->priority;//counter = counter / 2 + 1
 	}
 	switch_to(next);
 }
 
 int sys_pause(void)
 {
-	current->state = TASK_INTERRUPTIBLE;
+	current->state = TASK_INTERRUPTIBLE;//set process interruptible
 	schedule();
 	return 0;
 }
