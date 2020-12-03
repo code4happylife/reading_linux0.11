@@ -147,7 +147,8 @@ void main(void)		/* This really IS void, no error here. */
  * can run). For task0 'pause()' just means we go check if some other
  * task can run, and if not we return here.
  */
-	for(;;) pause();
+	for(;;) pause();//static inline _syscall0(int,pause)
+                        //pause then schedule
 }
 
 static int printf(const char *fmt, ...)

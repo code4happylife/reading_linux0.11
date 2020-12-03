@@ -138,7 +138,7 @@ void schedule(void)
 				(*p)->counter = ((*p)->counter >> 1) +
 						(*p)->priority;//counter = counter / 2 + 1
 	}
-	switch_to(next);
+	switch_to(next);//switch to execute process:next
 }
 
 int sys_pause(void)
