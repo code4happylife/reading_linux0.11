@@ -174,7 +174,7 @@ int copy_page_tables(unsigned long from,unsigned long to,long size)
 			this_page = *from_page_table;
 			if (!(1 & this_page))
 				continue;
-			this_page &= ~2;
+			this_page &= ~2;//set this page to be read-only
 			*to_page_table = this_page;
 			if (this_page > LOW_MEM) {
 				*from_page_table = this_page;
@@ -228,7 +228,7 @@ void un_wp_page(unsigned long * table_entry)
 		invalidate();
 		return;
 	}
-	if (!(new_page=get_free_page()))
+	if (!(new_page=get_free_page()))//apply for new page
 		oom();
 	if (old_page >= LOW_MEM)
 		mem_map[MAP_NR(old_page)]--;
