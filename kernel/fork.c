@@ -74,14 +74,15 @@ int copy_process(int nr,long ebp,long edi,long esi,long gs,long none,
 	int i;
 	struct file *f;
 
-	p = (struct task_struct *) get_free_page();
+	p = (struct task_struct *) get_free_page();//aaply for free page 
 	if (!p)
-		return -EAGAIN;
+		return -EAGAIN;//if can not get free page, return error
 	task[nr] = p;
 	*p = *current;	/* NOTE! this doesn't copy the supervisor stack */
-	p->state = TASK_UNINTERRUPTIBLE;
-	p->pid = last_pid;
-	p->father = current->pid;
+	//This will copy current process to new process p
+	p->state = TASK_UNINTERRUPTIBLE;//set process state to be uninterruptible
+	p->pid = last_pid;//set new pid
+	p->father = current->pid;//set father process ,its father process is current process
 	p->counter = p->priority;
 	p->signal = 0;
 	p->alarm = 0;

@@ -3,7 +3,7 @@
 
 #ifndef _TIME_T
 #define _TIME_T
-typedef long time_t;
+typedef long time_t;//from 1970 to count time
 #endif
 
 #ifndef _SIZE_T
@@ -11,12 +11,12 @@ typedef long time_t;
 typedef unsigned int size_t;
 #endif
 
-#define CLOCKS_PER_SEC 100
+#define CLOCKS_PER_SEC 100 //set the frequency to be 100HZ
 
 typedef long clock_t;
 
 struct tm {
-	int tm_sec;
+	int tm_sec;//second 
 	int tm_min;
 	int tm_hour;
 	int tm_mday;
@@ -37,6 +37,6 @@ char * ctime(const time_t * tp);
 struct tm * gmtime(const time_t *tp);
 struct tm *localtime(const time_t * tp);
 size_t strftime(char * s, size_t smax, const char * fmt, const struct tm * tp);
-void tzset(void);
+void tzset(void);//init time transfer info
 
 #endif

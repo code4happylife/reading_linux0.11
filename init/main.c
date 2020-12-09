@@ -113,7 +113,7 @@ void main(void)		/* This really IS void, no error here. */
  	drive_info = DRIVE_INFO;
 	memory_end = (1<<20) + (EXT_MEM_K<<10); //This is for total memory.
 	memory_end &= 0xfffff000;
-	if (memory_end > 16*1024*1024)
+	if (memory_end > 16*1024*1024)//setting memory info according to actual pysical memory.
 		memory_end = 16*1024*1024;
 	if (memory_end > 12*1024*1024) 
 		buffer_memory_end = 4*1024*1024;
@@ -121,7 +121,7 @@ void main(void)		/* This really IS void, no error here. */
 		buffer_memory_end = 2*1024*1024;
 	else
 		buffer_memory_end = 1*1024*1024;
-	main_memory_start = buffer_memory_end;
+	main_memory_start = buffer_memory_end;//main memory is behind the buffer
 #ifdef RAMDISK
 	main_memory_start += rd_init(main_memory_start, RAMDISK*1024);//This is setting virtual disk
 #endif
@@ -147,7 +147,8 @@ void main(void)		/* This really IS void, no error here. */
  * can run). For task0 'pause()' just means we go check if some other
  * task can run, and if not we return here.
  */
-	for(;;) pause();
+	for(;;) pause();//static inline _syscall0(int,pause)
+                        //pause then schedule
 }
 
 static int printf(const char *fmt, ...)

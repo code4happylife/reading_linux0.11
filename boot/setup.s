@@ -189,8 +189,8 @@ end_move:
 ! absolute address 0x00000, in 32-bit protected mode.
 
 	mov	ax,#0x0001	! protected mode (PE) bit
-	lmsw	ax		! This is it!
-	jmpi	0,8		! jmp offset 0 of segment 8 (cs)
+	lmsw	ax		! This is it! this is for load machine status word
+	jmpi	0,8		! jmp offset 0 of segment 8 (cs) which is 8:0
 
 ! This routine checks that the keyboard command queue is empty
 ! No timeout is used - if this hangs there is something wrong with
