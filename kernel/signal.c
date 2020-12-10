@@ -49,7 +49,7 @@ int sys_signal(int signum, long handler, long restorer)
 {
 	struct sigaction tmp;
 
-	if (signum<1 || signum>32 || signum==SIGKILL)
+	if (signum<1 || signum>32 || signum==SIGKILL)//whether signal is invalid
 		return -1;
 	tmp.sa_handler = (void (*)(int)) handler;
 	tmp.sa_mask = 0;
