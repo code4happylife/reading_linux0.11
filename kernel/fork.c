@@ -70,6 +70,7 @@ int copy_process(int nr,long ebp,long edi,long esi,long gs,long none,
 		long fs,long es,long ds,
 		long eip,long cs,long eflags,long esp,long ss)
 {
+	//hardware iret
 	struct task_struct *p;
 	int i;
 	struct file *f;
