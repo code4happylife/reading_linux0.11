@@ -74,12 +74,12 @@ static int _bmap(struct m_inode * inode,int block,int create)
 	struct buffer_head * bh;
 	int i;
 
-	if (block<0)
+	if (block<0) // if file block number is negative
 		panic("_bmap: block<0");
-	if (block >= 7+512+512*512)
+	if (block >= 7+512+512*512) // if file block number is greater than MAX_BLOCK
 		panic("_bmap: block>big");
 	if (block<7) {
-		if (create && !inode->i_zone[block])
+		if (create && !inode->i_zone[block])// create a new block
 			if (inode->i_zone[block]=new_block(inode->i_dev)) {
 				inode->i_ctime=CURRENT_TIME;
 				inode->i_dirt=1;
@@ -142,7 +142,7 @@ int bmap(struct m_inode * inode,int block)
 	return _bmap(inode,block,0);
 }
 
-int create_block(struct m_inode * inode, int block)
+int create_block(struct m_inode * inode, int block) //create a new block
 {
 	return _bmap(inode,block,1);
 }

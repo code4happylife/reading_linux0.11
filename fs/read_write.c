@@ -80,14 +80,14 @@ int sys_read(unsigned int fd,char * buf,int count)
 	return -EINVAL;
 }
 
-int sys_write(unsigned int fd,char * buf,int count)
+int sys_write(unsigned int fd,char * buf,int count) //write files
 {
 	struct file * file;
 	struct m_inode * inode;
 	
-	if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+	if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd])) //whether fd , count is in reasonable scope; whether file is open
 		return -EINVAL;
-	if (!count)
+	if (!count) //count is 0 means write nothing
 		return 0;
 	inode=file->f_inode;
 	if (inode->i_pipe)
@@ -97,7 +97,7 @@ int sys_write(unsigned int fd,char * buf,int count)
 	if (S_ISBLK(inode->i_mode))
 		return block_write(inode->i_zone[0],&file->f_pos,buf,count);
 	if (S_ISREG(inode->i_mode))
-		return file_write(inode,file,buf,count);
+		return file_write(inode,file,buf,count); //write files
 	printk("(Write)inode->i_mode=%06o\n\r",inode->i_mode);
 	return -EINVAL;
 }

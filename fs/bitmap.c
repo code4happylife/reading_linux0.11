@@ -78,7 +78,7 @@ int new_block(int dev)
 	struct super_block * sb;
 	int i,j;
 
-	if (!(sb = get_super(dev)))
+	if (!(sb = get_super(dev))) //get super block
 		panic("trying to get new block from nonexistant device");
 	j = 8192;
 	for (i=0 ; i<8 ; i++)
@@ -93,13 +93,13 @@ int new_block(int dev)
 	j += i*8192 + sb->s_firstdatazone-1;
 	if (j >= sb->s_nzones)
 		return 0;
-	if (!(bh=getblk(dev,j)))
+	if (!(bh=getblk(dev,j)))//apply for free cache block
 		panic("new_block: cannot get block");
 	if (bh->b_count != 1)
 		panic("new block: count is != 1");
-	clear_block(bh->b_data);
-	bh->b_uptodate = 1;
-	bh->b_dirt = 1;
+	clear_block(bh->b_data);// clear block data
+	bh->b_uptodate = 1;//set uptodate flag to be 1
+	bh->b_dirt = 1;//set written flag to be 1
 	brelse(bh);
 	return j;
 }

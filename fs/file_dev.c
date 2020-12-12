@@ -57,14 +57,14 @@ int file_write(struct m_inode * inode, struct file * filp, char * buf, int count
  * ok, append may not work when many processes are writing at the same time
  * but so what. That way leads to madness anyway.
  */
-	if (filp->f_flags & O_APPEND)
-		pos = inode->i_size;
+	if (filp->f_flags & O_APPEND) //APPEND WRITE FLAG
+		pos = inode->i_size; // pos moves to the end of the file
 	else
-		pos = filp->f_pos;
+		pos = filp->f_pos;//f_pos is the begining of the file
 	while (i<count) {
-		if (!(block = create_block(inode,pos/BLOCK_SIZE)))
+		if (!(block = create_block(inode,pos/BLOCK_SIZE)))//create logic block
 			break;
-		if (!(bh=bread(inode->i_dev,block)))
+		if (!(bh=bread(inode->i_dev,block))) //apply cache block
 			break;
 		c = pos % BLOCK_SIZE;
 		p = c + bh->b_data;
