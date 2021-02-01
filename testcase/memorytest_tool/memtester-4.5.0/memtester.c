@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
     printf("Licensed under the GNU General Public License version 2 (only).\n");
     printf("\n");
     check_posix_system();
-    pagesize = memtester_pagesize();
+    pagesize = memtester_pagesize();//to identify whether the system is 32-bit or 64-bit
     pagesizemask = (ptrdiff_t) ~(pagesize - 1);
     printf("pagesizemask is 0x%tx\n", pagesizemask);
     
@@ -298,7 +298,7 @@ int main(int argc, char **argv) {
 
     while (!done_mem) {
         while (!buf && wantbytes) {
-            buf = (void volatile *) malloc(wantbytes);
+            buf = (void volatile *) malloc(wantbytes);//apply for memory
             if (!buf) wantbytes -= pagesize;
         }
         bufsize = wantbytes;
@@ -308,7 +308,7 @@ int main(int argc, char **argv) {
         if (do_mlock) {
             printf(", trying mlock ...");
             fflush(stdout);
-            if ((size_t) buf % pagesize) {
+            if ((size_t) buf % pagesize) {//aligning to page
                 /* printf("aligning to page -- was 0x%tx\n", buf); */
                 aligned = (void volatile *) ((size_t) buf & pagesizemask) + pagesize;
                 /* printf("  now 0x%tx -- lost %d bytes\n", aligned,
@@ -347,7 +347,7 @@ int main(int argc, char **argv) {
                         done_mem = 1;
                 }
             } else {
-                printf("locked.\n");
+                printf("locked.\n");//lock the memory
                 done_mem = 1;
             }
         } else {
