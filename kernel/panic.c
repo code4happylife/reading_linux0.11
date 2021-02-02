@@ -15,10 +15,10 @@ void sys_sync(void);	/* it's really int */
 
 volatile void panic(const char * s)
 {
-	printk("Kernel panic: %s\n\r",s);
+	printk("Kernel panic: %s\n\r",s);//create a log with the meaning of panic...
 	if (current == task[0])
 		printk("In swapper task - not syncing\n\r");
 	else
 		sys_sync();
-	for(;;);
+	for(;;);//do nothing...
 }
