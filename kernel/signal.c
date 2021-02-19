@@ -94,7 +94,7 @@ void do_signal(long signr,long eax, long ebx, long ecx, long edx,
 	if (sa_handler==1)
 		return;
 	if (!sa_handler) {
-		if (signr==SIGCHLD)
+		if (signr==SIGCHLD)//SIGCHLD is to notify father process that its son process is already exit.
 			return;
 		else
 			do_exit(1<<(signr-1));
