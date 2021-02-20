@@ -74,10 +74,12 @@ struct tss_struct {
 	long	trace_bitmap;	/* bits: trace 0, bitmap 16-31 */
 	struct i387_struct i387;
 };
-
+//process descriptor
 struct task_struct {
 /* these are hardcoded - don't touch */
 	long state;	/* -1 unrunnable, 0 runnable, >0 stopped */
+	//process state, the kernel must have a clear picture of what each process is doing. It must know
+	//the process's priority, whether it is blocked...
 	long counter;
 	long priority;
 	long signal;
